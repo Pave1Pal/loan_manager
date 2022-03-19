@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+
 @Service
 public class RandomCreditManager implements CreditManager {
 
@@ -21,13 +23,10 @@ public class RandomCreditManager implements CreditManager {
     @Override
     @Transactional
     public boolean makeDecision(CreditApplication application) {
-        if (isNotApplicationAccepted()) {
-            return deniedAndSave(application);
-        }
-        return acceptAndSave(application);
+        return isApplicationAccepted() ? acceptAndSave(application) : deniedAndSave(application);
     }
 
-    private boolean isNotApplicationAccepted() {
+    private boolean isApplicationAccepted() {
         return Math.random() < 0.5;
     }
 
@@ -39,17 +38,19 @@ public class RandomCreditManager implements CreditManager {
 
     private boolean acceptAndSave(CreditApplication application) {
         application.setAccepted(true);
-        setDaysOfCredit(application);
+        setDaysOfCreditAndExpirationDate(application);
         setAcceptedSum(application);
         creditApplicationService.create(application);
         return true;
     }
 
-    private void setDaysOfCredit(CreditApplication application) {
+    private void setDaysOfCreditAndExpirationDate(CreditApplication application) {
         int daysOfMonth = 30;
         int monthInYear = 12;
         int days = (1 + (int)(Math.random() * monthInYear)) * daysOfMonth;
+        LocalDate expirationDate = application.getCreationDate().plusDays(days);
         application.setDays(days);
+        application.setExpirationDate(expirationDate);
     }
 
     private void setAcceptedSum(CreditApplication application) {

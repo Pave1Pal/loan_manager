@@ -8,5 +8,7 @@ import org.springframework.stereotype.Service;
 @Service
 public interface CreditContractService {
 
+    CreditContract create(CreditContract contract);
+
     Page<CreditContract> getAcceptedByUser(Pageable pageable);
 }

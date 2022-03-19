@@ -11,4 +11,6 @@ public interface CreditApplicationService {
     CreditApplication create(CreditApplication application);
 
     Page<CreditApplication> getAcceptedIsTrue(Pageable pageable);
+
+    CreditApplication update(CreditApplication application);
 }

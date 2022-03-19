@@ -5,7 +5,10 @@ import com.example.loanmanger.domain.entity.embadable.Job;
 import com.example.loanmanger.domain.entity.embadable.Passport;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
+
+import static javax.persistence.CascadeType.*;
 
 @Entity
 @Table(name = "customers")
@@ -23,12 +26,14 @@ public class Customer extends BaseEntity{
     private Job job;
 
     @OneToMany(mappedBy = "customer",
-            fetch = FetchType.LAZY)
-    private List<CreditApplication> creditApplications;
+            fetch = FetchType.LAZY,
+            cascade = {DETACH, MERGE, PERSIST, REFRESH})
+    private List<CreditApplication> creditApplications = new ArrayList<>();
 
     @OneToMany(mappedBy = "customer",
-            fetch = FetchType.LAZY)
-    private List<CreditContract> creditContracts;
+            fetch = FetchType.LAZY,
+            cascade = {DETACH, MERGE, PERSIST, REFRESH})
+    private List<CreditContract> creditContracts = new ArrayList<>();
 
     public FullName getFullName() {
         return fullName;

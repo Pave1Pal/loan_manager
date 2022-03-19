@@ -2,10 +2,7 @@ package com.example.loanmanger.domain.entity;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
@@ -20,7 +17,8 @@ public class CreditContract extends BaseEntity{
     @ManyToOne
     private Customer customer;
 
-    @OneToOne(mappedBy = "creditContract")
+    @OneToOne
+    @JoinColumn(name = "customer_id")
     private CreditApplication creditApplication;
 
 

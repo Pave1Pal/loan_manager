@@ -27,6 +27,7 @@ public class CreditApplication extends BaseEntity {
     private Integer days;
 
     @ManyToOne
+    @JoinColumn(name = "customer_id")
     private Customer customer;
 
     @OneToOne

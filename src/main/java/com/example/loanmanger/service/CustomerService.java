@@ -10,6 +10,10 @@ import org.springframework.stereotype.Service;
 @Service
 public interface CustomerService {
 
+    boolean isExist(Customer customer);
+
+    Customer create(Customer customer);
+
     Customer getByPassportCode(String code);
 
     Customer getByPhoneNumber(String phoneNumber);
@@ -17,4 +21,6 @@ public interface CustomerService {
     Page<Customer> getByFullName(FullName fullName, Pageable pageable);
 
     Page<Customer> getByFirstNameAndSurname(String firstName, String surName, Pageable pageable);
+
+    Customer update(Customer customer);
 }
