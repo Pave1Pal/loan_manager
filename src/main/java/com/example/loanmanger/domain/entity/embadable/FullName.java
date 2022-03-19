@@ -6,7 +6,7 @@ import javax.persistence.Embeddable;
 public class FullName {
 
     private String firstName;
-    private String lastLast;
+    private String surname;
     private String middleName;
 
     public String getFirstName() {
@@ -17,12 +17,12 @@ public class FullName {
         this.firstName = firstName;
     }
 
-    public String getLastLast() {
-        return lastLast;
+    public String getSurname() {
+        return surname;
     }
 
-    public void setLastLast(String lastLast) {
-        this.lastLast = lastLast;
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 
     public String getMiddleName() {
@@ -31,5 +31,10 @@ public class FullName {
 
     public void setMiddleName(String middleName) {
         this.middleName = middleName;
+    }
+
+    @Override
+    public String toString() {
+        return firstName + " " + surname + " " + middleName;
     }
 }
