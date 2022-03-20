@@ -6,13 +6,15 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 
 @Service
 public interface CustomerService {
 
-    boolean isExist(Customer customer);
-
     Customer create(Customer customer);
+
+    Optional<Customer> getOptionalByPassportCode(String code);
 
     Customer getByPassportCode(String code);
 
@@ -21,6 +23,4 @@ public interface CustomerService {
     Page<Customer> getByFullName(FullName fullName, Pageable pageable);
 
     Page<Customer> getByFirstNameAndSurname(String firstName, String surName, Pageable pageable);
-
-    Customer update(Customer customer);
 }

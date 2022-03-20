@@ -7,10 +7,13 @@ import javax.persistence.*;
 @Embeddable
 public class Passport {
 
+    @Column(name = "passport_place_of_issuance")
     private String placeOfIssuance;
 
+    @Column(name = "passport_code")
     private String code;
 
+    @Column(name = "passport_department_code")
     private String departmentCode;
 
     private String address;

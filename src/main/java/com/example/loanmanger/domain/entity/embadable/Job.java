@@ -2,22 +2,28 @@ package com.example.loanmanger.domain.entity.embadable;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.time.LocalDate;
 
 @Embeddable
 public class Job {
 
+    @Column(name = "job_start")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    private LocalDate startDate;
+    private LocalDate start;
 
+    @Column(name = "job_finish")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    private LocalDate finishDate;
+    private LocalDate finish;
 
+    @Column(name = "job_organization")
     private String organization;
 
+    @Column(name = "job_position")
     private String position;
 
+    @Column(name = "job_is_work")
     private boolean work;
 
     public String getOrganization() {
@@ -44,19 +50,19 @@ public class Job {
         this.work = work;
     }
 
-    public LocalDate getStartDate() {
-        return startDate;
+    public LocalDate getStart() {
+        return start;
     }
 
-    public void setStartDate(LocalDate startDate) {
-        this.startDate = startDate;
+    public void setStart(LocalDate startDate) {
+        this.start = startDate;
     }
 
-    public LocalDate getFinishDate() {
-        return finishDate;
+    public LocalDate getFinish() {
+        return finish;
     }
 
-    public void setFinishDate(LocalDate finishDate) {
-        this.finishDate = finishDate;
+    public void setFinish(LocalDate finishDate) {
+        this.finish = finishDate;
     }
 }

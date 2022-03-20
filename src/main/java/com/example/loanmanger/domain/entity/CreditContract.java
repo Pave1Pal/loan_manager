@@ -5,6 +5,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.time.LocalDate;
 
+import static javax.persistence.CascadeType.*;
+import static javax.persistence.CascadeType.REFRESH;
+
 @Entity
 @Table(name = "credit_contracts")
 public class CreditContract extends BaseEntity{
@@ -14,11 +17,11 @@ public class CreditContract extends BaseEntity{
 
     private boolean acceptedByUser;
 
-    @ManyToOne
+    @ManyToOne(cascade = {DETACH, MERGE, PERSIST, REFRESH})
+    @JoinColumn(name = "customer_id")
     private Customer customer;
 
-    @OneToOne
-    @JoinColumn(name = "customer_id")
+    @OneToOne(cascade = ALL)
     private CreditApplication creditApplication;
 
 

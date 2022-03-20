@@ -35,6 +35,14 @@ public class Customer extends BaseEntity{
             cascade = {DETACH, MERGE, PERSIST, REFRESH})
     private List<CreditContract> creditContracts = new ArrayList<>();
 
+    public void addApplication(CreditApplication application) {
+        this.creditApplications.add(application);
+    }
+
+    public void addContract(CreditContract contract) {
+        this.creditContracts.add(contract);
+    }
+
     public FullName getFullName() {
         return fullName;
     }
@@ -82,4 +90,6 @@ public class Customer extends BaseEntity{
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
+
+
 }

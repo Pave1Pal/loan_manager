@@ -1,18 +1,20 @@
 package com.example.loanmanger.domain.entity.embadable;
 
-import javax.persistence.Embeddable;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import java.util.Currency;
+import javax.persistence.*;
+
+import com.example.loanmanger.domain.entity.constants.Currency;
 
 @Embeddable
 public class Money {
 
-    private Long integerValue;
+    @Column(name = "money_integer")
+    private Long integerPart;
 
-    private int decimalValue;
+    @Column(name = "money_decimal")
+    private int decimalPart;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "money_currency")
     private Currency currency;
 
     public Currency getCurrency() {
@@ -23,19 +25,19 @@ public class Money {
         this.currency = currency;
     }
 
-    public Long getIntegerValue() {
-        return integerValue;
+    public Long getIntegerPart() {
+        return integerPart;
     }
 
-    public void setIntegerValue(Long integerValue) {
-        this.integerValue = integerValue;
+    public void setIntegerPart(Long integerPart) {
+        this.integerPart = integerPart;
     }
 
-    public int getDecimalValue() {
-        return decimalValue;
+    public int getDecimalPart() {
+        return decimalPart;
     }
 
-    public void setDecimalValue(int decimalValue) {
-        this.decimalValue = decimalValue;
+    public void setDecimalPart(int decimalPart) {
+        this.decimalPart = decimalPart;
     }
 }

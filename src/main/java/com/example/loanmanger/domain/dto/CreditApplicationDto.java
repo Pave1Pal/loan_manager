@@ -1,5 +1,7 @@
-package com.example.loanmanger.domain.entity;
+package com.example.loanmanger.domain.dto;
 
+import com.example.loanmanger.domain.entity.CreditContract;
+import com.example.loanmanger.domain.entity.Customer;
 import com.example.loanmanger.domain.entity.embadable.Money;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -7,16 +9,13 @@ import javax.persistence.*;
 import java.time.LocalDate;
 
 import static javax.persistence.CascadeType.*;
-import static javax.persistence.CascadeType.REFRESH;
 
-@Entity
-@Table(name = "credit_applications")
-public class CreditApplication extends BaseEntity {
+public class CreditApplicationDto {
 
-    @Transient
+    private Long id;
+
     private Money desiredSum;
 
-    @Embedded
     private Money acceptedSum;
 
     private boolean accepted;
@@ -29,23 +28,20 @@ public class CreditApplication extends BaseEntity {
 
     private Integer days;
 
-    @ManyToOne(cascade = {DETACH, MERGE, PERSIST, REFRESH})
-    @JoinColumn(name = "customer_id")
     private Customer customer;
 
-    @OneToOne(cascade = ALL)
     private CreditContract creditContract;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public Money getDesiredSum() {
         return desiredSum;
-    }
-
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
     }
 
     public void setDesiredSum(Money desiredSum) {
@@ -56,8 +52,8 @@ public class CreditApplication extends BaseEntity {
         return acceptedSum;
     }
 
-    public void setAcceptedSum(Money sum) {
-        this.acceptedSum = sum;
+    public void setAcceptedSum(Money acceptedSum) {
+        this.acceptedSum = acceptedSum;
     }
 
     public boolean isAccepted() {
@@ -92,6 +88,14 @@ public class CreditApplication extends BaseEntity {
         this.days = days;
     }
 
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
     public CreditContract getCreditContract() {
         return creditContract;
     }
@@ -99,5 +103,4 @@ public class CreditApplication extends BaseEntity {
     public void setCreditContract(CreditContract creditContract) {
         this.creditContract = creditContract;
     }
-
 }

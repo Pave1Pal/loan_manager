@@ -2,6 +2,7 @@ package com.example.loanmanger.service.Impl;
 
 import com.example.loanmanger.domain.entity.CreditApplication;
 import com.example.loanmanger.domain.entity.CreditContract;
+import com.example.loanmanger.exception.ContractNotCreated;
 import com.example.loanmanger.exception.CreditContractNotFoundException;
 import com.example.loanmanger.repository.CreditContractRepository;
 import com.example.loanmanger.service.CreditApplicationService;
@@ -12,26 +13,25 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Service
 public class CreditContractServiceImpl implements CreditContractService {
 
     @Autowired
-    public CreditContractServiceImpl(CreditContractRepository creditContractRepository,
-                                     CreditApplicationService creditApplicationService) {
-        this.creditApplicationService = creditApplicationService;
+    public CreditContractServiceImpl(CreditContractRepository creditContractRepository) {
         this.creditContractRepository = creditContractRepository;
     }
 
-    private final CreditApplicationService creditApplicationService;
     private final CreditContractRepository creditContractRepository;
 
 
     @Override
     @Transactional
     public CreditContract create(CreditContract contract) {
-        CreditApplication application = contract.getCreditApplication();
-        creditApplicationService.update(application);
-        return creditContractRepository.save(contract);
+        return Optional.of(contract)
+                .map(creditContractRepository::save)
+                .orElseThrow(ContractNotCreated::new);
     }
 
     @Override

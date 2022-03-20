@@ -58,14 +58,14 @@ public class RandomCreditManager implements CreditManager {
         Money acceptedSum;
         do {
             acceptedSum = calculateAcceptedSumBy(desiredSum);
-        } while (acceptedSum.getIntegerValue() == 0);
+        } while (acceptedSum.getIntegerPart() == 0);
         application.setAcceptedSum(acceptedSum);
     }
 
     private Money calculateAcceptedSumBy(Money desiredSum) {
         Money acceptedSum = new Money();
-        acceptedSum.setDecimalValue(desiredSum.getDecimalValue());
-        acceptedSum.setIntegerValue((long) (desiredSum.getIntegerValue() * Math.random()));
+        acceptedSum.setDecimalPart(desiredSum.getDecimalPart());
+        acceptedSum.setIntegerPart((long) (desiredSum.getIntegerPart() * Math.random()));
         return acceptedSum;
     }
 }
