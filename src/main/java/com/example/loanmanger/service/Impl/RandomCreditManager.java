@@ -1,7 +1,9 @@
 package com.example.loanmanger.service.Impl;
 
 import com.example.loanmanger.domain.entity.CreditApplication;
+import com.example.loanmanger.domain.entity.CreditContract;
 import com.example.loanmanger.domain.entity.embadable.Money;
+import com.example.loanmanger.exception.ApplicationDeniedException;
 import com.example.loanmanger.service.CreditApplicationService;
 import com.example.loanmanger.service.CreditManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,21 +24,29 @@ public class RandomCreditManager implements CreditManager {
 
     @Override
     @Transactional
-    public CreditApplication makeDecision(CreditApplication application) {
-        return isApplicationAccepted() ? acceptAndSave(application) : deniedAndSave(application);
+    public CreditContract getContract(CreditApplication application) {
+        if (isAccept(application)) {
+            CreditApplication acceptedApplication = setApplicationDetailsAndSave(application);
+            return buildContract(acceptedApplication);
+        } else {
+            throw new ApplicationDeniedException("application denied");
+        }
     }
 
-    private boolean isApplicationAccepted() {
-        return Math.random() < 0.5;
+    private boolean isAccept(CreditApplication application) {
+        boolean isAccepted = Math.random() < 0.5;
+        application.setAccepted(isAccepted);
+        return isAccepted;
     }
 
-    private CreditApplication deniedAndSave(CreditApplication application) {
-        application.setAccepted(false);
-        return creditApplicationService.create(application);
+    private CreditContract buildContract(CreditApplication application) {
+        CreditContract contract = new CreditContract();
+        contract.setCreditApplication(application);
+        contract.setCustomer(application.getCustomer());
+        return contract;
     }
 
-    private CreditApplication acceptAndSave(CreditApplication application) {
-        application.setAccepted(true);
+    private CreditApplication setApplicationDetailsAndSave(CreditApplication application) {
         setDaysOfCreditAndExpirationDate(application);
         setAcceptedSum(application);
         return creditApplicationService.create(application);

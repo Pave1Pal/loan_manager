@@ -6,7 +6,7 @@
     <link rel="stylesheet" th:href="@{/styles.css}"/>
 </head>
 <body>
-<form method="post" th:object="${applicationDto}" id="form">
+<form method="post" action="/credit-applications" th:object="${applicationDto}" id="form">
 
     <div id="fields">
         <label for="firstName">first name: </label>
@@ -68,7 +68,17 @@
         <br>
 
         <label for="desiredSum">desired sum</label>
-        <input id="desiredSum" type="number" th:field="*{desiredSum}">
+        <input id="desiredSum" type="number" th:field="*{desiredSum.integerPart}">
+
+        <label for="currency">currency</label>
+        <select id="currency" name="status" th:field="*{desiredSum.currency}">
+            <option value="">currency</option>
+            <option th:each="currnecy : ${applicationDto.desiredSum.currency.values()}"
+                    th:value="${currnecy}"
+                    th:text="${currnecy.toString().toLowerCase()}">
+            </option>
+        </select>
+        <br>
     </div>
 
     <button>Submit</button>
