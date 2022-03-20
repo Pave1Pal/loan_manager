@@ -37,10 +37,14 @@
         <input id="address" type="text" th:field="*{customer.passport.address}">
         <br>
 
+        <label for="phoneNumber">phone number: </label>
+        <input id="phoneNumber" type="text" th:field="*{customer.phoneNumber}">
+        <br>
+
         <label for="familyStatus">family status</label>
         <select id="familyStatus" name="status" th:field="*{customer.passport.familyStatus}">
-            <option value="">Select doctor</option>
-            <option th:each="status : ${applicationDto.customer.passport.familyStatus.values()}"
+            <option value="">family status</option>
+            <option th:each="status : ${familyStatuses}"
                     th:value="${status}"
                     th:text="${status.toString().toLowerCase()}">
             </option>
@@ -55,25 +59,25 @@
         <input id="jobFinish" type="date" th:field="*{customer.job.finish}">
         <br>
 
-        <label for="jobOrganization">start job date: </label>
+        <label for="isWork">is working now: </label>
+        <input id="isWork" type="checkbox" th:field="*{customer.job.work}">
+        <br>
+
+        <label for="jobOrganization">organization: </label>
         <input id="jobOrganization" type="text" th:field="*{customer.job.organization}">
         <br>
 
         <label for="jobPosition">position: </label>
-        <input id="jobPosition" type="text" th:field="*{customer.job.organization}">
-        <br>
-
-        <label for="isWork">is working now: </label>
-        <input id="isWork" type="checkbox" th:field="*{customer.job.work}">
+        <input id="jobPosition" type="text" th:field="*{customer.job.position}">
         <br>
 
         <label for="desiredSum">desired sum</label>
         <input id="desiredSum" type="number" th:field="*{desiredSum.integerPart}">
 
-        <label for="currency">currency</label>
+        <label for="currency"></label>
         <select id="currency" name="status" th:field="*{desiredSum.currency}">
             <option value="">currency</option>
-            <option th:each="currnecy : ${applicationDto.desiredSum.currency.values()}"
+            <option th:each="currnecy : ${currencies}"
                     th:value="${currnecy}"
                     th:text="${currnecy.toString().toLowerCase()}">
             </option>

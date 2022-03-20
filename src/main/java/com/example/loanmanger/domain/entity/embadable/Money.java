@@ -40,4 +40,9 @@ public class Money {
     public void setDecimalPart(int decimalPart) {
         this.decimalPart = decimalPart;
     }
+
+    @Override
+    public String toString() {
+        return integerPart + "." + decimalPart + " " + currency.getDisplayName();
+    }
 }

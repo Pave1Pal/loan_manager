@@ -1,5 +1,6 @@
 package com.example.loanmanger.domain.entity;
 
+import org.hibernate.annotations.Cascade;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -17,11 +18,12 @@ public class CreditContract extends BaseEntity{
 
     private boolean acceptedByUser;
 
-    @ManyToOne(cascade = {DETACH, MERGE, PERSIST, REFRESH})
+    @ManyToOne(cascade = {MERGE, REFRESH})
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
-    @OneToOne(cascade = ALL)
+    @OneToOne
     private CreditApplication creditApplication;
 
 

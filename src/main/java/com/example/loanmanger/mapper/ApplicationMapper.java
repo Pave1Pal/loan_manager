@@ -11,7 +11,6 @@ public interface ApplicationMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "accepted", ignore = true)
     @Mapping(target = "acceptedSum", ignore = true)
-    @Mapping(target = "creationDate", ignore = true)
     @Mapping(target = "expirationDate", ignore = true)
     @Mapping(target = "days", ignore = true)
     @Mapping(target = "creditContract", ignore = true)

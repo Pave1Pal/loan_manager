@@ -60,4 +60,13 @@ public class Passport {
     public void setDepartmentCode(String departmentCode) {
         this.departmentCode = departmentCode;
     }
+
+    @Override
+    public String toString() {
+        return  "place of issuance: " + placeOfIssuance  + "\n" +
+                "code: " + code + "\n" +
+                "department code: " + departmentCode + "\n" +
+                "address: " + address + "\n" +
+                "family status: " + familyStatus.toString().toLowerCase();
+    }
 }

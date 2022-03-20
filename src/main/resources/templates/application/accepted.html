@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>accepted application</title>
+    <link rel="stylesheet" th:href="@{/styles.css}"/>
+</head>
+<body>
+<div th:each="appl : ${applications}">
+    <sapn th:text="${appl.id}">application</sapn>
+    <hr/>
+    <br/>
+</div>
+<br/>
+<hr/>
+<span th:if="${pageNumber != 0}">
+    <a th:href="@{/credit-applications/accepted?page={previous}(previous=${previousPage})}">
+        <button>
+            back
+        </button>
+    </a>
+</span>
+
+<span th:text="${pageNumber+1}">pageNumber</span>
+
+<span th:if="${(pageNumber + 1) != totalPages}">
+    <a th:href="@{/credit-applications/accepted?page={next}(next=${nextPage})}">
+        <button>
+            next
+        </button>
+    </a>
+</span>
+</body>
+</html>

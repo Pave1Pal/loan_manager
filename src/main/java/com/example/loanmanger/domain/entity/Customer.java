@@ -31,8 +31,7 @@ public class Customer extends BaseEntity{
     private List<CreditApplication> creditApplications = new ArrayList<>();
 
     @OneToMany(mappedBy = "customer",
-            fetch = FetchType.LAZY,
-            cascade = {DETACH, MERGE, PERSIST, REFRESH})
+            fetch = FetchType.LAZY)
     private List<CreditContract> creditContracts = new ArrayList<>();
 
     public void addApplication(CreditApplication application) {
@@ -91,5 +90,11 @@ public class Customer extends BaseEntity{
         this.phoneNumber = phoneNumber;
     }
 
-
+    @Override
+    public String toString() {
+        return  "full name: " + "\n" + fullName + "\n" +
+                "phone number: " + phoneNumber + "\n" +
+                "passport: " + "\n" + passport + "\n" +
+                "job: " + "\n" + job ;
+    }
 }

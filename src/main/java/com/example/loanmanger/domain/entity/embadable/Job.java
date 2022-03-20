@@ -65,4 +65,13 @@ public class Job {
     public void setFinish(LocalDate finishDate) {
         this.finish = finishDate;
     }
+
+    @Override
+    public String toString() {
+        return  "start date: " + start + "\n" +
+                "finish date: " + finish + "\n" +
+                "organization: " + organization + "\n" +
+                "position: " + position + "\n" +
+                "is work: " + work;
+    }
 }

@@ -2,11 +2,16 @@ package com.example.loanmanger.domain.dto;
 
 import com.example.loanmanger.domain.entity.Customer;
 import com.example.loanmanger.domain.entity.embadable.Money;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.time.LocalDate;
 
 public class CreateApplicationDto {
 
     private Money desiredSum;
     private Customer customer;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    private LocalDate creationDate = LocalDate.now();
 
     public Money getDesiredSum() {
         return desiredSum;
@@ -22,5 +27,13 @@ public class CreateApplicationDto {
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
+    }
+
+    public LocalDate getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(LocalDate creationDate) {
+        this.creationDate = creationDate;
     }
 }

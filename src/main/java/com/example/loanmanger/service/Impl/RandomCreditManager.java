@@ -23,12 +23,12 @@ public class RandomCreditManager implements CreditManager {
     private final CreditApplicationService creditApplicationService;
 
     @Override
-    @Transactional
     public CreditContract getContract(CreditApplication application) {
         if (isAccept(application)) {
             CreditApplication acceptedApplication = setApplicationDetailsAndSave(application);
             return buildContract(acceptedApplication);
         } else {
+            creditApplicationService.create(application);
             throw new ApplicationDeniedException("application denied");
         }
     }
@@ -73,6 +73,7 @@ public class RandomCreditManager implements CreditManager {
     private Money calculateAcceptedSumBy(Money desiredSum) {
         Money acceptedSum = new Money();
         acceptedSum.setDecimalPart(desiredSum.getDecimalPart());
+        acceptedSum.setCurrency(desiredSum.getCurrency());
         acceptedSum.setIntegerPart((long) (desiredSum.getIntegerPart() * Math.random()));
         return acceptedSum;
     }

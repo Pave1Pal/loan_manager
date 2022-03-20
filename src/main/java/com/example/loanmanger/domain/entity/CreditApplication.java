@@ -33,7 +33,7 @@ public class CreditApplication extends BaseEntity {
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
-    @OneToOne(cascade = ALL)
+    @OneToOne
     private CreditContract creditContract;
 
     public Money getDesiredSum() {
@@ -100,4 +100,14 @@ public class CreditApplication extends BaseEntity {
         this.creditContract = creditContract;
     }
 
+    @Override
+    public String toString() {
+        return  "accepted sum: " + acceptedSum + "\n" +
+                "is accepted: " + accepted + "\n" +
+                "creationDate=" + creationDate + "\n" +
+                "expirationDate=" + expirationDate + "\n" +
+                "days=" + days + "\n" +
+                "customer " + customer + "\n" +
+                ", creditContract=" + creditContract;
+    }
 }
