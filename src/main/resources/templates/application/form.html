@@ -9,9 +9,69 @@
 <form method="post" th:object="${applicationDto}" id="form">
 
     <div id="fields">
+        <label for="firstName">first name: </label>
+        <input id="firstName" type="text" th:field="*{customer.fullName.firstName}">
+        <br>
 
+        <label for="surname">surname: </label>
+        <input id="surname" type="text" th:field="*{customer.fullName.surname}">
+        <br>
+
+        <label for="middleName">middle name: </label>
+        <input id="middleName" type="text" th:field="*{customer.fullName.middleName}">
+        <br>
+
+        <label for="passportPlaceOfIssuance">passport place of issuance: </label>
+        <input id="passportPlaceOfIssuance" type="text" th:field="*{customer.passport.placeOfIssuance}">
+        <br>
+
+        <label for="passportCode">passport code: </label>
+        <input id="passportCode" type="text" th:field="*{customer.passport.code}">
+        <br>
+
+        <label for="passportDepartmentCode">passport department code: </label>
+        <input id="passportDepartmentCode" type="text" th:field="*{customer.passport.departmentCode}">
+        <br>
+
+        <label for="address">place of living: </label>
+        <input id="address" type="text" th:field="*{customer.passport.address}">
+        <br>
+
+        <label for="familyStatus">family status</label>
+        <select id="familyStatus" name="status" th:field="*{customer.passport.familyStatus}">
+            <option value="">Select doctor</option>
+            <option th:each="status : ${applicationDto.customer.passport.familyStatus.values()}"
+                    th:value="${status}"
+                    th:text="${status.toString().toLowerCase()}">
+            </option>
+        </select>
+        <br>
+
+        <label for="jobStart">start job date: </label>
+        <input id="jobStart" type="date" th:field="*{customer.job.start}">
+        <br>
+
+        <label for="jobFinish">finish job date: </label>
+        <input id="jobFinish" type="date" th:field="*{customer.job.finish}">
+        <br>
+
+        <label for="jobOrganization">start job date: </label>
+        <input id="jobOrganization" type="text" th:field="*{customer.job.organization}">
+        <br>
+
+        <label for="jobPosition">position: </label>
+        <input id="jobPosition" type="text" th:field="*{customer.job.organization}">
+        <br>
+
+        <label for="isWork">is working now: </label>
+        <input id="isWork" type="checkbox" th:field="*{customer.job.work}">
+        <br>
+
+        <label for="desiredSum">desired sum</label>
+        <input id="desiredSum" type="number" th:field="*{desiredSum}">
     </div>
 
+    <button>Submit</button>
 </form>
 
 </body>

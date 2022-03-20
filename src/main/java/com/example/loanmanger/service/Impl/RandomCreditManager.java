@@ -22,7 +22,7 @@ public class RandomCreditManager implements CreditManager {
 
     @Override
     @Transactional
-    public boolean makeDecision(CreditApplication application) {
+    public CreditApplication makeDecision(CreditApplication application) {
         return isApplicationAccepted() ? acceptAndSave(application) : deniedAndSave(application);
     }
 
@@ -30,18 +30,16 @@ public class RandomCreditManager implements CreditManager {
         return Math.random() < 0.5;
     }
 
-    private boolean deniedAndSave(CreditApplication application) {
+    private CreditApplication deniedAndSave(CreditApplication application) {
         application.setAccepted(false);
-        creditApplicationService.create(application);
-        return false;
+        return creditApplicationService.create(application);
     }
 
-    private boolean acceptAndSave(CreditApplication application) {
+    private CreditApplication acceptAndSave(CreditApplication application) {
         application.setAccepted(true);
         setDaysOfCreditAndExpirationDate(application);
         setAcceptedSum(application);
-        creditApplicationService.create(application);
-        return true;
+        return creditApplicationService.create(application);
     }
 
     private void setDaysOfCreditAndExpirationDate(CreditApplication application) {

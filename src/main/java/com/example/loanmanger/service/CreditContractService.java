@@ -5,7 +5,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-@Service
 public interface CreditContractService {
 
     CreditContract create(CreditContract contract);
