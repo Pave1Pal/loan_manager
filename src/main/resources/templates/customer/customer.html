@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>customer</title>
+    <link rel="stylesheet" th:href="@{/styles.css}"/>
+</head>
+<body>
+<div>
+    full name: <span th:text="${customer.fullName.firstName}">first</span>
+    <span th:text="${customer.fullName.surname}">surname</span>
+    <span th:text="${customer.fullName.middleName}">middle name</span>
+</div>
+<div>
+    passport place of issuance: <span th:text="${customer.passport.placeOfIssuance}">passport place of issuance</span>
+</div>
+<div>
+    passport code: <span th:text="${customer.passport.code}">passport code</span>
+</div>
+<div>
+    passport department code: <span th:text="${customer.passport.departmentCode}">passport department code</span>
+</div>
+<div>
+    place of living: <span th:text="${customer.passport.address}">place of living</span>
+</div>
+<div>
+    phone number: <span th:text="${customer.phoneNumber}">phone number</span>
+</div>
+<div>
+    family status: <span th:text="${customer.passport.familyStatus.toString().toLowerCase()}">family status</span>
+</div>
+<div>
+    start job date: <span th:text="${customer.job.start}">start job date</span>
+</div>
+<div>
+    finish job date: <span th:text="${customer.job.finish}">finish job date</span>
+</div>
+<div>
+    is working: <span th:text="${customer.job.work}">is working</span>
+</div>
+<div>
+    organization: <span th:text="${customer.job.organization}">organization</span>
+</div>
+<div>
+    position: <span th:text="${customer.job.position}">position</span>
+</div>
+</body>
+</html>

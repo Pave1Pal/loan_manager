@@ -3,7 +3,10 @@ package com.example.loanmanger.controller;
 import com.example.loanmanger.domain.dto.CreditContractDto;
 import com.example.loanmanger.mapper.ContractMapper;
 import com.example.loanmanger.service.CreditContractService;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -27,7 +30,7 @@ public class CreditContractController {
     }
 
     @PostMapping
-    public String createContract(@ModelAttribute("contractDto")CreditContractDto contractDto) {
+    public String createContract(@ModelAttribute("contractDto") CreditContractDto contractDto) {
         Optional.of(contractDto)
                 .map(contractMapper::formDto)
                 .map(contractService::create)
@@ -40,4 +43,12 @@ public class CreditContractController {
         return "contract/creation_finish";
     }
 
+    @GetMapping(path = "accepted")
+    public String getAccepted(Model model, @PageableDefault(size = 3) Pageable pageable) {
+        Optional.of(pageable)
+                .map(contractService::getAcceptedByUser)
+                .map(contracts -> model.addAttribute("contracts", contracts))
+                .orElseThrow();
+        return "contract/contracts";
+    }
 }

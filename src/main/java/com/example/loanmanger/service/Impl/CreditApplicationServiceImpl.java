@@ -47,10 +47,15 @@ public class CreditApplicationServiceImpl implements CreditApplicationService {
     @Override
     @Transactional(readOnly = true)
     public Page<CreditApplication> getAcceptedIsTrue(Pageable pageable) {
-        Page<CreditApplication> applications = creditApplicationRepository.findByAcceptedIsTrue(pageable);
-        if (applications.isEmpty()) {
-            throw new ApplicationNotFoundException("No accepted application");
-        }
-        return applications;
+        return Optional.of(pageable)
+                .map(creditApplicationRepository::findByAcceptedIsTrue)
+                .filter(application -> !application.isEmpty())
+                .orElseThrow(() -> new ApplicationNotFoundException("No accepted application"));
+    }
+
+    @Override
+    public CreditApplication getById(Long id) {
+        return creditApplicationRepository.findById(id)
+                .orElseThrow(ApplicationNotFoundException::new);
     }
 }

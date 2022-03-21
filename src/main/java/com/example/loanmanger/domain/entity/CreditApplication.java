@@ -33,7 +33,7 @@ public class CreditApplication extends BaseEntity {
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
-    @OneToOne
+    @OneToOne(mappedBy = "creditApplication")
     private CreditContract creditContract;
 
     public Money getDesiredSum() {

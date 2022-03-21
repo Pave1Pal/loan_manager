@@ -6,34 +6,49 @@
     <link rel="stylesheet" th:href="@{/styles.css}"/>
 </head>
 <body>
-<form method="post" action="/credit-contracts" th:object="${contractDto}">
-    <div id="fields">
 
-        first name: <span th:text="${contractDto.customer.fullName.firstName}">customer first name</span>
-        <br/>
-
-        surname: <span th:text="${contractDto.customer.fullName.surname}">customer surname</span>
-        <br/>
-
-        middle name: <span th:text="${contractDto.customer.fullName.middleName}">customer middle name</span>
-        <br/>
-
-        start date: <span th:text="${contractDto.creditApplication.creationDate}">creation date</span>
-        <br/>
-
-        days: <span th:text="${contractDto.creditApplication.days}">days of credit</span>
-        <br/>
-
-        sum: <span th:text="${contractDto.creditApplication.acceptedSum.integerPart}">int part</span>.
-        <span th:text="${contractDto.creditApplication.acceptedSum.decimalPart}">decimal part</span>
-        <span th:text="${contractDto.creditApplication.acceptedSum.currency}">currency</span>
-        <br/>
-
-        <label for="isAcceptedByUser">accept: </label>
-        <input id="isAcceptedByUser" type="checkbox" th:field="*{acceptedByUser}">
+<div th:if="${!contractDto.creditApplication.accepted}">
+    <h2>application denied</h2>
+    <div>
+        <a href="/credit-applications/form">
+            <button>new application</button>
+        </a>
     </div>
-    <br/>
-    <button>Submit</button>
-</form>
+</div>
+
+<div th:if="${contractDto.creditApplication.accepted}">
+    <form method="post" action="/credit-contracts" th:object="${contractDto}">
+        <div id="fields">
+
+            first name: <span th:text="${contractDto.customer.fullName.firstName}">customer first name</span>
+            <br/>
+
+            surname: <span th:text="${contractDto.customer.fullName.surname}">customer surname</span>
+            <br/>
+
+            middle name: <span th:text="${contractDto.customer.fullName.middleName}">customer middle name</span>
+            <br/>
+
+            start date: <span th:text="${contractDto.creditApplication.creationDate}">creation date</span>
+            <br/>
+
+            days: <span th:text="${contractDto.creditApplication.days}">days of credit</span>
+            <br/>
+
+            sum: <span th:text="${contractDto.creditApplication.acceptedSum.integerPart}">int part</span>.
+            <span th:text="${contractDto.creditApplication.acceptedSum.decimalPart}">decimal part</span>
+            <span th:text="${contractDto.creditApplication.acceptedSum.currency}">currency</span>
+            <br/>
+
+            sing in date: <span th:text="${contractDto.singInDate}">singInDate</span>
+            <br/>
+
+            <label for="isAcceptedByUser">accept: </label>
+            <input id="isAcceptedByUser" type="checkbox" th:field="*{acceptedByUser}">
+        </div>
+        <br/>
+        <button>Submit</button>
+    </form>
+</div>
 </body>
 </html>

@@ -21,4 +21,8 @@ public interface CustomerService {
     Page<Customer> getByFullName(FullName fullName, Pageable pageable);
 
     Page<Customer> getByFirstNameAndSurname(String firstName, String surName, Pageable pageable);
+
+    Page<Customer> getAllCustomers(Pageable pageable);
+
+    Customer getById(Long id);
 }

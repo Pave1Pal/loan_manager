@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>customers</title>
+    <link rel="stylesheet" th:href="@{/styles.css}"/>
+</head>
+<body>
+<div th:each="customer : ${customers}">
+    <div>
+        <a th:href="@{/customers/{id}(id=${customer.id})}">customer id: <span th:text="${customer.id}"></span></a>
+    </div>
+    <div>
+        full name: <span th:text="${customer.fullName.firstName}">first</span>
+        <span th:text="${customer.fullName.surname}">surname</span>
+        <span th:text="${customer.fullName.middleName}">middle name</span>
+    </div>
+    <div>
+        address: <span th:text="${customer.passport.address}">address</span>
+    </div>
+    <div>
+        passport code: <span th:text="${customer.passport.code}">passport code</span>
+    </div>
+    <div>
+        place of living: <span th:text="${customer.passport.address}">place of living</span>
+    </div>
+    <div>
+        phone number: <span th:text="${customer.phoneNumber}">phone number</span>
+    </div>
+    <hr/>
+    <br/>
+</div>
+<span th:if="${pageNumber != 0}">
+    <a th:href="@{/credit-applications/accepted?page={previous}(previous=${previousPage})}">
+        <button>
+            back
+        </button>
+    </a>
+</span>
+
+<span th:text="${pageNumber+1}">pageNumber</span>
+
+<span th:if="${(pageNumber + 1) != totalPages}">
+    <a th:href="@{/credit-applications/accepted?page={next}(next=${nextPage})}">
+        <button>
+            next
+        </button>
+    </a>
+</span>
+
+</body>
+</html>

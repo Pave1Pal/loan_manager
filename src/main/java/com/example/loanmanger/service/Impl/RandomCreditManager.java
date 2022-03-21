@@ -3,12 +3,10 @@ package com.example.loanmanger.service.Impl;
 import com.example.loanmanger.domain.entity.CreditApplication;
 import com.example.loanmanger.domain.entity.CreditContract;
 import com.example.loanmanger.domain.entity.embadable.Money;
-import com.example.loanmanger.exception.ApplicationDeniedException;
 import com.example.loanmanger.service.CreditApplicationService;
 import com.example.loanmanger.service.CreditManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 
@@ -16,24 +14,24 @@ import java.time.LocalDate;
 public class RandomCreditManager implements CreditManager {
 
     @Autowired
-    public RandomCreditManager(CreditApplicationService creditApplicationService) {
-        this.creditApplicationService = creditApplicationService;
+    public RandomCreditManager(CreditApplicationService applicationService) {
+        this.applicationService = applicationService;
     }
 
-    private final CreditApplicationService creditApplicationService;
+    private final CreditApplicationService applicationService;
 
     @Override
-    public CreditContract getContract(CreditApplication application) {
-        if (isAccept(application)) {
+    public CreditContract setStatusAndGetContract(CreditApplication application) {
+        if (accept(application)) {
             CreditApplication acceptedApplication = setApplicationDetailsAndSave(application);
             return buildContract(acceptedApplication);
         } else {
-            creditApplicationService.create(application);
-            throw new ApplicationDeniedException("application denied");
+            CreditApplication deniedApplication = applicationService.create(application);
+            return buildFalseContract(deniedApplication);
         }
     }
 
-    private boolean isAccept(CreditApplication application) {
+    private boolean accept(CreditApplication application) {
         boolean isAccepted = Math.random() < 0.5;
         application.setAccepted(isAccepted);
         return isAccepted;
@@ -41,15 +39,23 @@ public class RandomCreditManager implements CreditManager {
 
     private CreditContract buildContract(CreditApplication application) {
         CreditContract contract = new CreditContract();
+        contract.setSingInDate(LocalDate.now());
         contract.setCreditApplication(application);
         contract.setCustomer(application.getCustomer());
         return contract;
     }
 
+    private CreditContract buildFalseContract(CreditApplication application) {
+        CreditContract contract = new CreditContract();
+        contract.setCreditApplication(application);
+        return contract;
+    }
+
+
     private CreditApplication setApplicationDetailsAndSave(CreditApplication application) {
         setDaysOfCreditAndExpirationDate(application);
         setAcceptedSum(application);
-        return creditApplicationService.create(application);
+        return applicationService.create(application);
     }
 
     private void setDaysOfCreditAndExpirationDate(CreditApplication application) {

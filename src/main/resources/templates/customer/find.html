@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>find customer</title>
+    <link rel="stylesheet" th:href="@{/styles.css}"/>
+</head>
+<body>
+<div>
+    <form method="get" action="/customers/phone-number" th:object="${form}">
+        <label for="phoneNumber">Find by phone number</label>
+        <br/>
+        <input id="phoneNumber" type="text" name="phoneNumber" th:field="*{phoneNumber}">
+        <br/>
+        <button>find by phone</button>
+    </form>
+</div>
+<br/>
+<div>
+    <form method="get" action="/customers/passport-code" th:object="${form}">
+        <label for="passportCode">Find by passport code</label>
+        <br/>
+        <input id="passportCode" type="text" th:field="*{passportCode}">
+        <br/>
+        <button>find by passport code</button>
+    </form>
+</div>
+<br/>
+<div>
+    <form method="get" action="/customers/full-name" th:object="${form}">
+        Find by full name: <br/>
+        <label for="firstName">first name: </label>
+        <input id="firstName" type="text" th:field="*{fullName.firstName}">
+        <br>
+
+        <label for="surname">surname: </label>
+        <input id="surname" type="text" th:field="*{fullName.surname}">
+        <br>
+
+        <label for="middleName">middle name: </label>
+        <input id="middleName" type="text" th:field="*{fullName.middleName}">
+        <br>
+        <button>find by full name</button>
+    </form>
+</div>
+</body>
+</html>

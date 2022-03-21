@@ -51,11 +51,10 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Page<Customer> getByFullName(FullName fullName, Pageable pageable) {
-        Page<Customer> customers = customerRepository.findByFullName(fullName, pageable);
-        if (customers.isEmpty()) {
-            throw new CustomerNotFoundException(fullName.toString());
-        }
-        return customers;
+        return Optional.of(fullName)
+                .map(name -> customerRepository.findByFullName(name, pageable))
+                .filter(customers -> !customers.isEmpty())
+                .orElseThrow(() -> new CustomerNotFoundException(fullName.toString()));
     }
 
     @Override
@@ -66,5 +65,19 @@ public class CustomerServiceImpl implements CustomerService {
             throw new CustomerNotFoundException(firstName + " " + surname);
         }
         return customers;
+    }
+
+    @Override
+    public Page<Customer> getAllCustomers(Pageable pageable) {
+        return Optional.of(pageable)
+                .map(customerRepository::findAll)
+                .filter(customers -> !customers.isEmpty())
+                .orElseThrow(CustomerNotFoundException::new);
+    }
+
+    @Override
+    public Customer getById(Long id) {
+        return customerRepository.findById(id)
+                .orElseThrow(() -> new CustomerNotFoundException(id.toString()));
     }
 }

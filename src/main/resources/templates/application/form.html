@@ -41,7 +41,7 @@
         <input id="phoneNumber" type="text" th:field="*{customer.phoneNumber}">
         <br>
 
-        <label for="familyStatus">family status</label>
+        <label for="familyStatus">family status: </label>
         <select id="familyStatus" name="status" th:field="*{customer.passport.familyStatus}">
             <option value="">family status</option>
             <option th:each="status : ${familyStatuses}"

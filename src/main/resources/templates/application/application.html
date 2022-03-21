@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>accepted application</title>
+    <link rel="stylesheet" th:href="@{/styles.css}"/>
+</head>
+<body>
+<div>
+    application id: <span th:text="${appl.id}">id</span>
+</div>
+<br/>
+<div>
+    first name: <span th:text="${appl.customer.fullName.firstName}">first name</span>
+</div>
+<div>
+    surname: <span th:text="${appl.customer.fullName.surname}">surname</span>
+</div>
+<div>
+    middle name: <span th:text="${appl.customer.fullName.middleName}">middle name</span>
+</div>
+<div>
+    passport place of issuance: <span th:text="${appl.customer.passport.placeOfIssuance}">passport place of issuance</span>
+</div>
+<div>
+    passport code: <span th:text="${appl.customer.passport.code}">passport code</span>
+</div>
+<div>
+    passport department code: <span
+        th:text="${appl.customer.passport.departmentCode}">passport department code</span>
+</div>
+<div>
+    place of living: <span th:text="${appl.customer.passport.address}">place of living</span>
+</div>
+<div>
+    phone number: <span th:text="${appl.customer.phoneNumber}">phone number</span>
+</div>
+<div>
+    family status: <span th:text="${appl.customer.passport.familyStatus.toString().toLowerCase()}">family status</span>
+</div>
+<div>
+    start job date: <span th:text="${appl.customer.job.start}">start job date</span>
+</div>
+<div>
+    finish job date: <span th:text="${appl.customer.job.finish}">finish job date</span>
+</div>
+<div>
+    is working: <span th:text="${appl.customer.job.work}">is working</span>
+</div>
+<div>
+    organization: <span th:text="${appl.customer.job.organization}">organization</span>
+</div>
+<div>
+    position: <span th:text="${appl.customer.job.position}">position</span>
+</div>
+<div>
+    creation date: <span th:text="${appl.creationDate}">creation date</span>
+</div>
+<div>
+    expiration date: <span th:text="${appl.expirationDate}">expiration date</span>
+</div>
+<div>
+    days: <span th:text="${appl.days}">days</span>
+</div>
+<div>
+    sum: <span th:text="${appl.acceptedSum.integerPart}">int part</span>.
+    <span th:text="${appl.acceptedSum.decimalPart}">decimal part</span>
+    <span th:text="${appl.acceptedSum.currency.getDisplayName()}">currency</span>
+</div>
+
+</body>
+</html>

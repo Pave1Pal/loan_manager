@@ -2,7 +2,6 @@ package com.example.loanmanger.controller;
 
 import com.example.loanmanger.domain.dto.CreateApplicationDto;
 import com.example.loanmanger.domain.entity.CreditApplication;
-import com.example.loanmanger.domain.entity.CreditContract;
 import com.example.loanmanger.domain.entity.constants.Currency;
 import com.example.loanmanger.domain.entity.constants.FamilyStatus;
 import com.example.loanmanger.mapper.ApplicationMapper;
@@ -18,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
+import java.util.Optional;
 
 @Controller
 @SessionAttributes("contractDto")
@@ -42,24 +42,27 @@ public class CreditApplicationController {
 
     @GetMapping(path = "form")
     public String getForm(Model model) {
-        model.addAttribute("applicationDto", new CreateApplicationDto());
-        model.addAttribute("familyStatuses", FamilyStatus.values());
-        model.addAttribute("currencies", Currency.values());
+        model.addAllAttributes(Map.of(
+                "applicationDto", new CreateApplicationDto(),
+                "familyStatuses", FamilyStatus.values(),
+                "currencies", Currency.values())
+        );
         return "application/form";
     }
 
     @PostMapping
-    public String createApplication(Model model,
-                                    @ModelAttribute("applicationDto") CreateApplicationDto createDto) {
-        CreditApplication application = applicationMapper.fromCreateDto(createDto);
-        CreditContract contract = creditManager.getContract(application);
-        model.addAttribute("contractDto", contractMapper.toDto(contract));
-        return "redirect:" + "credit-contracts/form";
+    public String createApplication(Model model, @ModelAttribute("applicationDto") CreateApplicationDto createDto) {
+        Optional.of(createDto)
+                .map(applicationMapper::fromCreateDto)
+                .map(creditManager::setStatusAndGetContract)
+                .map(contractMapper::toDto)
+                .map(contractDto -> model.addAttribute("contractDto", contractDto))
+                .orElseThrow();
+        return "redirect:credit-contracts/form";
     }
 
     @GetMapping(path = "accepted")
-    public String getAcceptedApplications(Model model,
-                                          @PageableDefault(size = 5) Pageable pageable) {
+    public String getAcceptedApplications(Model model, @PageableDefault(size = 2) Pageable pageable) {
         Page<CreditApplication> acceptedApplications = applicationService.getAcceptedIsTrue(pageable);
         model.addAllAttributes(Map.of(
                 "applications", acceptedApplications.getContent(),
@@ -68,6 +71,17 @@ public class CreditApplicationController {
                 "pageNumber", pageable.getPageNumber(),
                 "previousPage", pageable.getPageNumber()-1)
         );
-        return "application/accepted";
+        return "application/applications";
     }
+
+    @GetMapping(path = "{id}")
+    public String getApplicationById(Model model, @PathVariable("id") Long id) {
+        Optional.of(id)
+                .map(applicationService::getById)
+                .map(applicationMapper::toDto)
+                .map(applicationDto -> model.addAttribute("appl", applicationDto))
+                .orElseThrow();
+        return "application/application";
+    }
+
 }
