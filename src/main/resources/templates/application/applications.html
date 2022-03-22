@@ -4,52 +4,54 @@
 <head>
     <meta charset="UTF-8">
     <title>accepted application</title>
-    <link rel="stylesheet" th:href="@{/styles.css}"/>
+    <link rel="stylesheet" th:href="@{style.css}"/>
 </head>
 <body>
 <h2>applications</h2>
 <div th:each="appl : ${applications}">
-    <div>
-        <a th:href="@{/credit-applications/{id}(id=${appl.id})}">application id: <span th:text="${appl.id}"></span></a>
+    <div class="frame">
+        <div>
+            <a th:href="@{/credit-applications/{id}(id=${appl.id})}">application id: <span th:text="${appl.id}"></span></a>
+        </div>
+        <br/>
+        <div>
+            first name: <span th:text="${appl.customer.fullName.firstName}">first name</span>
+        </div>
+        <div>
+            surname: <span th:text="${appl.customer.fullName.surname}">surname</span>
+        </div>
+        <div>
+            middle name: <span th:text="${appl.customer.fullName.middleName}">middle name</span>
+        </div>
+        <div>
+            passport code: <span th:text="${appl.customer.passport.code}">passport code</span>
+        </div>
+        <div>
+            place of living: <span th:text="${appl.customer.passport.address}">place of living</span>
+        </div>
+        <div>
+            phone number: <span th:text="${appl.customer.phoneNumber}">phone number</span>
+        </div>
+        <div>
+            creation date: <span th:text="${appl.creationDate}">creation date</span>
+        </div>
+        <div>
+            expiration date: <span th:text="${appl.expirationDate}">expiration date</span>
+        </div>
+        <div>
+            days: <span th:text="${appl.days}">days</span>
+        </div>
+        <div>
+            sum: <span th:text="${appl.acceptedSum.integerPart}">int part</span>.
+            <span th:text="${appl.acceptedSum.decimalPart}">decimal part</span>
+            <span th:text="${appl.acceptedSum.currency}">currency</span>
+        </div>
+        <div>
+            status: <span th:text="${appl.accepted}">accepted</span>
+        </div>
+        <hr/>
+        <br/>
     </div>
-    <br/>
-    <div>
-        first name: <span th:text="${appl.customer.fullName.firstName}">first name</span>
-    </div>
-    <div>
-        surname: <span th:text="${appl.customer.fullName.surname}">surname</span>
-    </div>
-    <div>
-        middle name: <span th:text="${appl.customer.fullName.middleName}">middle name</span>
-    </div>
-    <div>
-        passport code: <span th:text="${appl.customer.passport.code}">passport code</span>
-    </div>
-    <div>
-        place of living: <span th:text="${appl.customer.passport.address}">place of living</span>
-    </div>
-    <div>
-        phone number: <span th:text="${appl.customer.phoneNumber}">phone number</span>
-    </div>
-    <div>
-        creation date: <span th:text="${appl.creationDate}">creation date</span>
-    </div>
-    <div>
-        expiration date: <span th:text="${appl.expirationDate}">expiration date</span>
-    </div>
-    <div>
-        days: <span th:text="${appl.days}">days</span>
-    </div>
-    <div>
-        sum: <span th:text="${appl.acceptedSum.integerPart}">int part</span>.
-        <span th:text="${appl.acceptedSum.decimalPart}">decimal part</span>
-        <span th:text="${appl.acceptedSum.currency}">currency</span>
-    </div>
-    <div>
-        status: <span th:text="${appl.accepted}">accepted</span>
-    </div>
-    <hr/>
-    <br/>
 </div>
 <span th:if="${pageNumber != 0}">
     <a th:href="@{/credit-applications/accepted?page={previous}(previous=${previousPage})}">
@@ -68,5 +70,7 @@
         </button>
     </a>
 </span>
+<br/>
+<a th:href="@{/}"><button>home page</button></a>
 </body>
 </html>

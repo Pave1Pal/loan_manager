@@ -9,6 +9,7 @@ import java.time.LocalDate;
 @Embeddable
 public class Job {
 
+
     @Column(name = "job_start")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate start;

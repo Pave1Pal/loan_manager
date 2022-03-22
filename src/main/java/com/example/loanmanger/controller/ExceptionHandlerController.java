@@ -9,8 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 @ControllerAdvice
 public class ExceptionHandlerController {
     @ExceptionHandler(Exception.class)
-    public ModelAndView handleTreatmentNotFoundException(HttpServletRequest request,
-                                                         Exception exception) {
+    public ModelAndView handleTreatmentNotFoundException(HttpServletRequest request, Exception exception) {
         ModelAndView modelAndView = new ModelAndView("error/exception");
         modelAndView.addObject("exception", exception);
         modelAndView.addObject("url", request.getRequestURI());

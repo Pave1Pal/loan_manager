@@ -1,18 +1,22 @@
 package com.example.loanmanger.domain.entity.embadable;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import com.example.loanmanger.domain.entity.constants.Currency;
 
 @Embeddable
 public class Money {
 
+    @NotNull
     @Column(name = "money_integer")
     private Long integerPart;
 
     @Column(name = "money_decimal")
     private int decimalPart;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "money_currency")
     private Currency currency;

@@ -4,12 +4,21 @@ import com.example.loanmanger.domain.entity.Customer;
 import com.example.loanmanger.domain.entity.embadable.Money;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 public class CreateApplicationDto {
 
+    @Valid
+    @NotNull
     private Money desiredSum;
+
+    @Valid
+    @NotNull
     private Customer customer;
+
+    @NotNull
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate creationDate = LocalDate.now();
 

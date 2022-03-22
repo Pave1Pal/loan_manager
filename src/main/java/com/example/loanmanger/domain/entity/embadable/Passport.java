@@ -2,22 +2,35 @@ package com.example.loanmanger.domain.entity.embadable;
 
 import com.example.loanmanger.domain.entity.constants.FamilyStatus;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 @Embeddable
 public class Passport {
 
+    @NotBlank
     @Column(name = "passport_place_of_issuance")
     private String placeOfIssuance;
 
+    @NotBlank
+    @Pattern(regexp = "^([0-9]{6})?$")
     @Column(name = "passport_code")
     private String code;
 
+    @NotBlank
+    @Pattern(regexp = "^([0-9]{3}[-]{1}[0-9]{3})?$")
     @Column(name = "passport_department_code")
     private String departmentCode;
 
+    @NotBlank
     private String address;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
     private FamilyStatus familyStatus;
 

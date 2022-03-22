@@ -1,4 +1,4 @@
-create table customers
+create table if not exists customers
 (
     id                         bigint not null
         constraint customers_pkey
@@ -22,7 +22,7 @@ create table customers
 alter table customers
     owner to postgres;
 
-create table credit_applications
+create table if not exists credit_applications
 (
     id              bigint  not null
         constraint credit_applications_pkey
@@ -42,7 +42,7 @@ create table credit_applications
 alter table credit_applications
     owner to postgres;
 
-create table credit_contracts
+create table if not exists credit_contracts
 (
     id                    bigint  not null
         constraint credit_contracts_pkey

@@ -14,12 +14,17 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Map;
 import java.util.Optional;
 
 @Controller
+@Validated
 @SessionAttributes("contractDto")
 @RequestMapping("credit-applications")
 public class CreditApplicationController {
@@ -51,8 +56,17 @@ public class CreditApplicationController {
     }
 
     @PostMapping
-    public String createApplication(Model model, @ModelAttribute("applicationDto") CreateApplicationDto createDto) {
-        Optional.of(createDto)
+    public String createApplication(Model model,
+                                    @ModelAttribute("applicationDto") @Validated CreateApplicationDto applicationDto,
+                                    BindingResult errors) {
+        if (errors.hasErrors()) {
+            model.addAllAttributes(Map.of(
+                    "familyStatuses", FamilyStatus.values(),
+                    "currencies", Currency.values())
+            );
+            return "application/form";
+        }
+        Optional.of(applicationDto)
                 .map(applicationMapper::fromCreateDto)
                 .map(creditManager::setStatusAndGetContract)
                 .map(contractMapper::toDto)

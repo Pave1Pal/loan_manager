@@ -3,10 +3,15 @@
       xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <title>application form</title>
-    <link rel="stylesheet" th:href="@{/styles.css}"/>
+    <link rel="stylesheet" th:href="@{style.css}" href="../../static/css/main.css"/>
 </head>
 <body>
+<h2>application form</h2>
 <form method="post" action="/credit-applications" th:object="${applicationDto}" id="form">
+<div class="frame">
+    <div th:if="${#fields.hasErrors()}">
+        <span style="color: red">invalid values</span>
+    </div>
 
     <div id="fields">
         <label for="firstName">first name: </label>
@@ -86,7 +91,10 @@
     </div>
 
     <button>Submit</button>
+</div>
 </form>
-
+<br/>
+<br/>
+<a th:href="@{/}"><button>home page</button></a>
 </body>
 </html>

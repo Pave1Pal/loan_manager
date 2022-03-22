@@ -1,12 +1,20 @@
 package com.example.loanmanger.domain.entity.embadable;
 
 import javax.persistence.Embeddable;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Embeddable
 public class FullName {
 
+    @NotBlank
+    @Size(min = 2, max = 30)
     private String firstName;
+
+    @NotBlank
+    @Size(min = 2, max = 30)
     private String surname;
+
     private String middleName;
 
     public String getFirstName() {

@@ -3,8 +3,12 @@ package com.example.loanmanger.domain.entity;
 import com.example.loanmanger.domain.entity.embadable.FullName;
 import com.example.loanmanger.domain.entity.embadable.Job;
 import com.example.loanmanger.domain.entity.embadable.Passport;
+import com.example.loanmanger.validation.annotation.PhoneNumber;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,11 +19,15 @@ import static javax.persistence.CascadeType.*;
 public class Customer extends BaseEntity{
 
     @Embedded
+    @Valid
     private FullName fullName;
 
+    @NotBlank
+    @PhoneNumber
     private String phoneNumber;
 
     @Embedded
+    @Valid
     private Passport passport;
 
     @Embedded

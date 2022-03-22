@@ -1,7 +1,8 @@
 package com.example.loanmanger.domain.entity.constants;
 
 public enum Currency {
-    RUB("rub")
+    RUB("rub"),
+    USD("usd")
     ;
 
     Currency(String displayName) {

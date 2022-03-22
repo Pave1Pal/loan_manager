@@ -58,7 +58,7 @@ public class CustomerController {
     }
 
     @GetMapping
-    public String getAllCustomers(Model model, @PageableDefault(size = 5) Pageable pageable) {
+    public String getAllCustomers(Model model, @PageableDefault(size = 4) Pageable pageable) {
         Optional.of(pageable)
                 .map(customerService::getAllCustomers)
                 .map(customers -> model.addAllAttributes(Map.of(
@@ -73,7 +73,7 @@ public class CustomerController {
     }
 
     @GetMapping("full-name")
-    public String getByFullName(Model model, @PageableDefault Pageable pageable,
+    public String getByFullName(Model model, @PageableDefault(size = 4) Pageable pageable,
                                 @ModelAttribute("form") FormDto form) {
         Optional.of(form.getFullName())
                 .map(name -> customerService.getByFullName(name, pageable))
