@@ -1,10 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>contracts</title>
+    <link rel="stylesheet" th:href="@{/styles.css}"/>
 </head>
 <body>
+<h2>Contracts</h2>
+<div th:each="contract : ${contracts}">
+    <div>
+       contract id: <span th:text="${contract.id}">id</span>
+    </div>
+    <div>
+        full name: <span th:text="${contract.customer.fullName.firstName}">first name</span>
+        <span th:text="${contract.customer.fullName.surname}">surname</span>
+        <span th:text="${contract.customer.fullName.middleName}">middle name</span>
+    </div>
+    <div>
+        sing in date: <span th:text="${contract.singInDate}">sing in date</span>
+    </div>
+    <div>
+        sum: <span th:text="${contract.creditApplication.acceptedSum.integerPart}">int part</span>
+    </div>
+    <div>
+        is accepted: <span th:text="${contract.acceptedByUser}">is accepted</span>
+    </div>
+</div>
 
 </body>
 </html>

@@ -40,13 +40,14 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public Customer getByPassportCode(String code) {
         return customerRepository.findByPassportCode(code)
-                .orElseThrow(() -> new CustomerNotFoundException("Passport code: " + code));
+                .orElseThrow(() -> new CustomerNotFoundException("Customer not found: passport code - " + code));
     }
 
     @Override
     public Customer getByPhoneNumber(String phoneNumber) {
         return customerRepository.findByPhoneNumber(phoneNumber)
-                .orElseThrow(() -> new CustomerNotFoundException("Phone number: " + phoneNumber));
+                .orElseThrow(() ->
+                        new CustomerNotFoundException("Customer not found: phone number - " + phoneNumber));
     }
 
     @Override
@@ -54,17 +55,8 @@ public class CustomerServiceImpl implements CustomerService {
         return Optional.of(fullName)
                 .map(name -> customerRepository.findByFullName(name, pageable))
                 .filter(customers -> !customers.isEmpty())
-                .orElseThrow(() -> new CustomerNotFoundException(fullName.toString()));
-    }
-
-    @Override
-    public Page<Customer> getByFirstNameAndSurname(String firstName, String surname, Pageable pageable) {
-        Page<Customer> customers = customerRepository
-                .findByFullNameFirstNameAndFullNameSurname(firstName, surname, pageable);
-        if (customers.isEmpty()) {
-            throw new CustomerNotFoundException(firstName + " " + surname);
-        }
-        return customers;
+                .orElseThrow(() ->
+                        new CustomerNotFoundException("Customer not found: " + fullName.toString()));
     }
 
     @Override
@@ -72,12 +64,12 @@ public class CustomerServiceImpl implements CustomerService {
         return Optional.of(pageable)
                 .map(customerRepository::findAll)
                 .filter(customers -> !customers.isEmpty())
-                .orElseThrow(CustomerNotFoundException::new);
+                .orElseThrow(() -> new CustomerNotFoundException("No customers"));
     }
 
     @Override
     public Customer getById(Long id) {
         return customerRepository.findById(id)
-                .orElseThrow(() -> new CustomerNotFoundException(id.toString()));
+                .orElseThrow(() -> new CustomerNotFoundException("Customer not found: id - " + id));
     }
 }
