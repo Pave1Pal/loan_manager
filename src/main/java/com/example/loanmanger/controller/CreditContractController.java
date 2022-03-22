@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
 import java.util.Optional;
 
 @Controller
@@ -47,7 +48,13 @@ public class CreditContractController {
     public String getAccepted(Model model, @PageableDefault(size = 3) Pageable pageable) {
         Optional.of(pageable)
                 .map(contractService::getAcceptedByUser)
-                .map(contracts -> model.addAttribute("contracts", contracts))
+                .map(contracts -> model.addAllAttributes(Map.of(
+                        "contracts", contracts,
+                        "totalPages", contracts.getTotalPages(),
+                        "nextPage", pageable.getPageNumber() + 1,
+                        "pageNumber", pageable.getPageNumber(),
+                        "previousPage", pageable.getPageNumber() - 1))
+                )
                 .orElseThrow();
         return "contract/contracts";
     }

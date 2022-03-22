@@ -21,12 +21,35 @@
         sing in date: <span th:text="${contract.singInDate}">sing in date</span>
     </div>
     <div>
-        sum: <span th:text="${contract.creditApplication.acceptedSum.integerPart}">int part</span>
+        expiration date: <span th:text="${contract.creditApplication.expirationDate}">expiration date</span>
+    </div>
+    <div>
+        sum: <span th:text="${contract.creditApplication.acceptedSum.integerPart}">int part</span>.
+        <span th:text="${contract.creditApplication.acceptedSum.decimalPart}">dic part</span>
+        <span th:text="${contract.creditApplication.acceptedSum.currency.getDisplayName()}">currenecy</span>
     </div>
     <div>
         is accepted: <span th:text="${contract.acceptedByUser}">is accepted</span>
     </div>
+    <hr/>
+    <br/>
 </div>
+<span th:if="${pageNumber != 0}">
+    <a th:href="@{/credit-contracts/accepted?page={previous}(previous=${previousPage})}">
+        <button>
+            back
+        </button>
+    </a>
+</span>
 
+<span th:text="${pageNumber+1}">pageNumber</span>
+
+<span th:if="${(pageNumber + 1) != totalPages}">
+    <a th:href="@{/credit-contracts/accepted?page={next}(next=${nextPage})}">
+        <button>
+            next
+        </button>
+    </a>
+</span>
 </body>
 </html>
