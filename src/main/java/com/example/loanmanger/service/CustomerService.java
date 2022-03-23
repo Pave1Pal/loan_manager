@@ -10,8 +10,6 @@ import java.util.Optional;
 
 public interface CustomerService {
 
-    Customer create(Customer customer);
-
     Optional<Customer> getOptionalByPassportCode(String code);
 
     Customer getByPassportCode(String code);

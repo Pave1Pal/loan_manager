@@ -25,14 +25,6 @@ public class CustomerServiceImpl implements CustomerService {
     private final CustomerRepository customerRepository;
 
     @Override
-    @Transactional
-    public Customer create(Customer customer) {
-        return Optional.of(customer)
-                .map(customerRepository::save)
-                .orElseThrow(CustomerNotCreated::new);
-    }
-
-    @Override
     public Optional<Customer> getOptionalByPassportCode(String code) {
         return customerRepository.findByPassportCode(code);
     }
@@ -56,7 +48,7 @@ public class CustomerServiceImpl implements CustomerService {
                 .map(name -> customerRepository.findByFullName(name, pageable))
                 .filter(customers -> !customers.isEmpty())
                 .orElseThrow(() ->
-                        new CustomerNotFoundException("Customer not found: " + fullName.toString()));
+                        new CustomerNotFoundException("Customer not found: " + fullName));
     }
 
     @Override
